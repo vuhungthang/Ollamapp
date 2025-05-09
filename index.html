@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama Code Generator</title>
+</head>
+<body>
+    <h1>Ollama Code Generator</h1>
+    <p>This is a simple code generator that uses Ollama to generate code.</p>
+    <p>To use it, you need to have Ollama installed and running.</p>
+    <p>You can install Ollama using this link below for installation guide:</p>
+    <a href="https://ollama.com/download">Ollama Installation</a>
+    <p>After installing Ollama, you can start it using this command:</p>
+    <div>
+        <code>ollama run ollama run qwen3:0.6b</code>
+    </div>
+
+    <div>
+        <button onclick="generateQuote()">Generate Quote</button>
+        <div id="quote"></div>
+    </div>
+
+    <div>
+        <button onclick="generateIdea()">Generate Idea</button>
+        <div id="idea"></div>
+    </div>
+ 
+    
+
+
+    
+    <script src="script.js"></script>
+</body>
+</html>
