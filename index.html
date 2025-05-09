@@ -6,29 +6,22 @@
     <title>Ollama Code Generator</title>
 </head>
 <body>
-    <h1>Ollama Code Generator</h1>
-    <p>This is a simple code generator that uses Ollama to generate code.</p>
-    <p>To use it, you need to have Ollama installed and running.</p>
-    <p>You can install Ollama using this link below for installation guide:</p>
-    <a href="https://ollama.com/download">Ollama Installation</a>
-    <p>After installing Ollama, you can start it using this command:</p>
-    <div>
-        <code>ollama run ollama run qwen3:0.6b</code>
+    <h1>Welcome to Ollama Code Generator</h1>
+    <p>This is the homepage with a placeholder for welcome information and access to available models.</p>
+    <div id="navigationLinks" style="display: none;">
+        <p>To navigate:</p>
+        <ul>
+            <li><a href="quote.html">Go to Generate Quote Page</a></li>
+            <li><a href="idea.html">Go to Generate Idea Page</a></li>
+        </ul>
     </div>
-
-    <div>
-        <button onclick="generateQuote()">Generate Quote</button>
-        <div id="quote"></div>
-    </div>
-
-    <div>
-        <button onclick="generateIdea()">Generate Idea</button>
-        <div id="idea"></div>
-    </div>
- 
     
-
-
+    <div id="modelsSection" class="Models-section">
+        <button onclick="getModelsInfo()">Show Available Models</button>
+        <div id="info"></div>
+        <select id="modelSelect"></select>
+        <button onclick="selectModel()">Select Model</button>
+    </div>
     
     <script src="script.js"></script>
 </body>
