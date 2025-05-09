@@ -19,7 +19,6 @@ async function generateQuote() {
     });
     const data = await response.json();
     const quote = data.response;
-    console.log(quote);
     document.getElementById("quote").innerHTML = quote;
 }
 
@@ -42,14 +41,31 @@ async function generateIdea() {
     });
     const data = await response.json();
     const idea = data.response;
-    console.log(idea);
     document.getElementById("idea").innerHTML = idea;
 }
 
 async function getModelsInfo() {
     const navigationDiv = document.getElementById('navigationLinks');
-    const modelsSection = document.getElementById('modelsSection');  // Get the models section element
-    if (modelsSection) modelsSection.style.display = 'none';  // Initially hide it
+    const modelsSection = document.getElementById('modelsSection');
+    const errorMessageElement = document.getElementById('errorMessage') || document.getElementById('info');
+    const currentPage = window.location.pathname;
+
+    if (modelsSection) {
+        if (currentPage.includes('index.html')) {
+            modelsSection.style.display = 'block';
+        } else {
+            modelsSection.style.display = 'none';
+        }
+    }
+
+    if (errorMessageElement && (currentPage.includes('index.html') || !localStorage.getItem('selectedModel'))) {
+        errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download">here</a> and run it.</p>';
+    }
+    
+    if (navigationDiv) {
+        navigationDiv.style.display = 'none';
+    }
+
     try {
         const response = await fetch('http://localhost:11434/api/tags', {
             method: "GET",
@@ -68,10 +84,9 @@ async function getModelsInfo() {
         }
         const selectedModel = localStorage.getItem('selectedModel');
         let infoHTML = '';
-        const currentPage = window.location.pathname;
         
         if (currentPage.includes('index.html')) {
-            if (modelsSection) modelsSection.style.display = 'block';  // Show models section if API works
+            if (modelsSection) modelsSection.style.display = 'block';
             if (selectedModel) {
                 if (navigationDiv) navigationDiv.style.display = 'block';
             } else {
@@ -81,10 +96,11 @@ async function getModelsInfo() {
         
         if (currentPage.includes('quote.html') || currentPage.includes('idea.html')) {
             if (!selectedModel) {
-                document.getElementById('errorMessage').innerHTML = 'No model selected. Please go back to the homepage and select one.';
+                if(errorMessageElement) errorMessageElement.innerHTML = 'You have not selected a model. Please return to the main page to select one. Redirecting...';
                 setTimeout(() => { window.location.href = 'index.html'; }, 2000);
                 return;
             }
+             if (navigationDiv) navigationDiv.style.display = 'block';
         }
         
         if (selectedModel) {
@@ -96,29 +112,47 @@ async function getModelsInfo() {
         const selectElement = document.getElementById('modelSelect');
         if (selectElement) {
             selectElement.innerHTML = modelNameList.map(model => `<option value="${model}">${model}</option>`).join('');
+            if(selectedModel) selectElement.value = selectedModel;
         }
-        document.getElementById('info').innerHTML = infoHTML;
+        
+        const infoDisplayElement = document.getElementById('info');
+        if (infoDisplayElement) {
+             infoDisplayElement.innerHTML = infoHTML;
+        }
+    
+        if (navigationDiv && localStorage.getItem('selectedModel')) {
+            navigationDiv.style.display = 'block';
+        }
+
     } catch (error) {
-        const errorMessageElement = document.getElementById('errorMessage') || document.getElementById('info');
-        if (errorMessageElement) {
-            errorMessageElement.innerHTML = '<p>Ollama API is not working. Please install Ollama from <a href="https://ollama.com/download">here</a> and run it with the command: ollama serve.</p>';
-        }
-        if (navigationDiv) navigationDiv.style.display = 'none';
-        const currentPage = window.location.pathname;
-        if (currentPage.includes('quote.html') || currentPage.includes('idea.html')) {
-            setTimeout(() => { window.location.href = 'index.html'; }, 2000);
+            const currentErrPage = window.location.pathname;
+            if (modelsSection && currentErrPage.includes('index.html')) {
+                 modelsSection.style.display = 'block';
+            }
+            if (errorMessageElement) {
+                 errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download">here</a> and run it.</p>';
+            }
+            if (navigationDiv) {
+                navigationDiv.style.display = 'none';
+            }
+            if (currentErrPage.includes('quote.html') || currentErrPage.includes('idea.html')) {
+                if (!localStorage.getItem('selectedModel')) {
+                    if (errorMessageElement) {
+                        errorMessageElement.innerHTML = 'Ollama is not available or no model selected. Redirecting to the main page.';
+                    }
+                    setTimeout(() => { window.location.href = 'index.html'; }, 2500);
+                }
+            }
         }
     }
-}
-
+  
 function selectModel() {
     const selectElement = document.getElementById('modelSelect');
     if (selectElement && selectElement.value) {
         localStorage.setItem('selectedModel', selectElement.value);
         alert('Model selected: ' + selectElement.value + '. You can change it from the main page.');
-        getModelsInfo();  // Refresh the info to show the updated message
+        getModelsInfo();
     } else {
         alert('Please select a model first.');
     }
 }
-
