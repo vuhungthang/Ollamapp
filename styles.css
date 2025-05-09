@@ -1,0 +1,186 @@
+/* General Body Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light gray background, similar to the image */
+    color: #212529; /* Dark gray text color */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center; /* Center content horizontally */
+}
+
+/* Header/Navigation Styles */
+header {
+    width: 100%;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff; /* White background for header */
+    border-bottom: 1px solid #e9ecef; /* Subtle border */
+    box-sizing: border-box;
+}
+
+header .logo {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #000; /* Black color for logo text */
+}
+
+header nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #212529;
+    font-weight: 500;
+}
+
+header nav a:hover {
+    color: #007bff; /* Accent color on hover */
+}
+
+header .header-actions button {
+    margin-left: 15px;
+    padding: 8px 15px;
+    border: 1px solid #212529;
+    background-color: #fff;
+    color: #212529;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+header .header-actions button.primary {
+    background-color: #212529; /* Dark primary button */
+    color: #fff;
+}
+
+/* Main Content Area */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 800px; /* Limit content width for better readability */
+    box-sizing: border-box;
+}
+
+.main-content .logo-container img {
+    max-width: 100px; /* Adjust as needed */
+    margin-bottom: 30px;
+}
+
+.main-content h1 {
+    font-size: 2.5em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.main-content p {
+    font-size: 1.1em;
+    color: #495057; /* Slightly lighter text for paragraphs */
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Button Styles (General and Page-Specific) */
+button, .button {
+    background-color: #212529; /* Dark button background */
+    color: #ffffff; /* White text */
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px; /* Rounded corners */
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* For anchor tags styled as buttons */
+    display: inline-block; /* For anchor tags styled as buttons */
+}
+
+button:hover, .button:hover {
+    background-color: #343a40; /* Darken button on hover */
+}
+
+/* Styling for specific sections based on your HTML */
+.Idea-section, .Quote-section, .Models-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 600px;
+}
+
+#info, #quote, #idea {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    min-height: 50px;
+    background-color: #f8f9fa;
+}
+
+#modelSelect {
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}
+
+#errorMessage {
+    color: red;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Navigation Links Styling */
+#navigationLinks ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#navigationLinks ul li {
+    margin-bottom: 10px;
+}
+
+#navigationLinks ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+
+#navigationLinks ul li a:hover {
+    text-decoration: underline;
+}
+
+
+/* Footer Styles */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px 30px;
+    font-size: 0.9em;
+    color: #6c757d; /* Lighter text for footer */
+    border-top: 1px solid #e9ecef;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
