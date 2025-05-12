@@ -53,7 +53,7 @@ async function getModelsInfo() {
     const currentPage = window.location.pathname;
 
     if (modelsSection) {
-        if (currentPage.includes('index.html')) {
+        if (currentPage === '/' || currentPage === '' || currentPage.includes('index.html')) {
             modelsSection.style.display = 'block';
         } else {
             modelsSection.style.display = 'none';
@@ -87,7 +87,7 @@ async function getModelsInfo() {
         const selectedModel = localStorage.getItem('selectedModel');
         let infoHTML = '';
         
-        if (currentPage.includes('index.html')) {
+        if (currentPage === '/' || currentPage === '' || currentPage.includes('index.html')) {
             if (modelsSection) modelsSection.style.display = 'block';
             if (selectedModel) {
                 if (navigationDiv) navigationDiv.style.display = 'block';
