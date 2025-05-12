@@ -8,6 +8,7 @@ async function generateQuote() {
         alert('No model selected. Please go back to the homepage and select one.');
         return;
     }
+    document.getElementById("quote").innerHTML = 'Loading Quote...';
     const response = await fetch(`${ollamaApiBaseUrl}/api/generate`, {
         method: "POST",
         headers: {
@@ -30,6 +31,7 @@ async function generateIdea() {
         alert('No model selected. Please go back to the homepage and select one.');
         return;
     }
+    document.getElementById("idea").innerHTML = 'Loading Idea...';
     const response = await fetch(`${ollamaApiBaseUrl}/api/generate`, {
         method: "POST",
         headers: {
@@ -105,9 +107,7 @@ async function getModelsInfo() {
              if (navigationDiv) navigationDiv.style.display = 'block';
         }
         
-        if (selectedModel) {
-            infoHTML += `<p>Current model: ${selectedModel}. <button onclick="selectModel()">Change Model</button></p>`;
-        } else {
+        if (!selectedModel) {
             infoHTML += '<p>No model selected. Please choose one from the list below.</p>';
         }
         infoHTML += `<ul>${modelNameList.map(model => `<li>${model}</li>`).join('')}</ul>`;
