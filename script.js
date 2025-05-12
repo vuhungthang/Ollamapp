@@ -184,7 +184,7 @@ async function getTranslation() {
 
     const selectedLanguage = document.getElementById('languages').value;
 
-    document.getElementById("translation").innerHTML = 'Loading Idea...';
+    document.getElementById("translation").innerHTML = 'Loading translation...';
     const response = await fetch(`${ollamaApiBaseUrl}/api/generate`, {
         method: "POST",
         headers: {
