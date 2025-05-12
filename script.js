@@ -89,6 +89,15 @@ async function getModelsInfo() {
         const selectedModel = localStorage.getItem('selectedModel');
         let infoHTML = '';
         
+        const currentModelDisplayElement = document.getElementById('currentModelDisplay');
+        if (currentModelDisplayElement) {
+            if (selectedModel) {
+                currentModelDisplayElement.innerHTML = `Current Model: <strong>${selectedModel}</strong>`;
+            } else {
+                currentModelDisplayElement.innerHTML = 'No model selected.';
+            }
+        }
+        
         if (currentPage === '/' || currentPage === '' || currentPage.includes('index.html')) {
             if (modelsSection) modelsSection.style.display = 'block';
             if (selectedModel) {
@@ -157,4 +166,38 @@ function selectModel() {
     } else {
         alert('Please select a model first.');
     }
+}
+
+async function getTranslation() {
+    const selectedModel = localStorage.getItem('selectedModel');
+    if (!selectedModel) {
+        alert('No model selected. Please go back to the homepage and select one.');
+        return;
+    }
+
+    const wordToTranslate = document.getElementById('wordInput').value;
+    if (!wordToTranslate) {
+        alert('Please enter a word to translate.');
+        return;
+    }
+
+
+    const selectedLanguage = document.getElementById('languages').value;
+
+    document.getElementById("translation").innerHTML = 'Loading Idea...';
+    const response = await fetch(`${ollamaApiBaseUrl}/api/generate`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "model": selectedModel,
+            "prompt": `translate ${wordToTranslate} into ${selectedLanguage}`,
+            "stream": false
+        })
+    });
+    const data = await response.json();
+    const translation = data.response;
+    document.getElementById("translation").innerHTML = translation;
+
 }

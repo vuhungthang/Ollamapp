@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to Ollama</h1>
+    <h1>Welcome to Ollamapp</h1>
     <p>This is the homepage with a placeholder for welcome information and access to available models.</p>
     <div id="navigationLinks" style="display: none;">
         <p>To navigate:</p>
         <ul>
             <li><a href="quote.html">Go to Generate Quote Page</a></li>
             <li><a href="idea.html">Go to Generate Idea Page</a></li>
+            <li><a href="translator.html">Go to Generate Translation Page</a></li>
         </ul>
     </div>
     
     <div id="modelsSection" class="Models-section">
         <button onclick="getModelsInfo()">Show Available Models</button>
         <div id="info"></div>
+        <p id="currentModelDisplay"></p>
         <select id="modelSelect"></select>
         <button onclick="selectModel()">Select Model</button>
     </div>

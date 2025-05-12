@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="errorMessage" style="color: red;"></div>
+    <h1>Translator</h1>
+    <p>This page doing translation using Ollama.</p>
+
+    <div>
+        <label for="languages">Choose a language:</label>
+        <select id="languages" name="languages">
+          <option value="English">English</option>
+          <option value="Vietnamese">Vietnamese</option>
+          <option value="Japanese">Japanese</option>
+        </select>
+    </div>
+    <div class="translation-section">
+        <input type="text" id="wordInput" placeholder="Enter word to translate">
+        <button onclick="getTranslation()">Generate Translation</button>
+    </div>
+
+    <div id="translation"></div>
+    <p id="currentModelDisplay"></p>
+    <div class="Models-section">
+        <select id="modelSelect"></select>
+        <button onclick="selectModel()">Select Model</button>
+    </div>
+    <!-- Add a link back to the homepage -->
+    <div style="margin-top: 20px; text-align: center;">
+        <a href="index.html">Back to Home</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

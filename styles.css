@@ -109,7 +109,7 @@ button:hover, .button:hover {
 }
 
 /* Styling for specific sections based on your HTML */
-.Idea-section, .Quote-section, .Models-section {
+.Idea-section, .Quote-section, .Models-section, .Translation-section {
     margin-top: 20px;
     padding: 20px;
     background-color: #ffffff;
@@ -119,7 +119,7 @@ button:hover, .button:hover {
     max-width: 600px;
 }
 
-#info, #quote, #idea {
+#info, #quote, #idea, #translation {
     margin-top: 15px;
     padding: 10px;
     border: 1px solid #e9ecef;
@@ -183,4 +183,50 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+/* Add some basic styling for the translation section */
+.translation-section {
+    margin-top: 20px;
+    display: flex; /* Use flexbox to align input and button */
+    gap: 10px; /* Add space between input and button */
+    align-items: center; /* Vertically align items */
+}
+
+/* Style the input field */
+#wordInput {
+    padding: 10px;
+    border: 1px solid #ced4da; /* Adjusted border color to match theme */
+    border-radius: 4px;
+    font-size: 1rem;
+    flex-grow: 1; /* Allow input to take up available space */
+    max-width: 300px; /* Limit input width */
+}
+
+/* Style the button */
+.translation-section button {
+    padding: 10px 15px;
+    background-color: #212529; /* Changed to match primary button color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for the button */
+.translation-section button:hover {
+    background-color: #343a40; /* Changed to match primary button hover color */
+}
+
+/* Style the translation output div */
+#translation {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e9ecef; /* Changed border color to match theme */
+    border-radius: 4px;
+    background-color: #f8f9fa; /* Changed background color to match theme */
+    min-height: 30px; /* Give it a minimum height */
+    white-space: pre-wrap; /* Preserve formatting and wrap text */
 }
