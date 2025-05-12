@@ -1,3 +1,5 @@
+const ollamaApiBaseUrl = "http://localhost:11434"; // Default to localhost for local development
+
 document.addEventListener('DOMContentLoaded', getModelsInfo);
 
 async function generateQuote() {
@@ -6,7 +8,7 @@ async function generateQuote() {
         alert('No model selected. Please go back to the homepage and select one.');
         return;
     }
-    const response = await fetch("http://localhost:11434/api/generate", {
+    const response = await fetch(`${ollamaApiBaseUrl}/api/generate`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -28,7 +30,7 @@ async function generateIdea() {
         alert('No model selected. Please go back to the homepage and select one.');
         return;
     }
-    const response = await fetch("http://localhost:11434/api/generate", {
+    const response = await fetch(`${ollamaApiBaseUrl}/api/generate`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -67,7 +69,7 @@ async function getModelsInfo() {
     }
 
     try {
-        const response = await fetch('http://localhost:11434/api/tags', {
+        const response = await fetch(`${ollamaApiBaseUrl}/api/tags`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
