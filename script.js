@@ -2,7 +2,24 @@ const ollamaApiBaseUrl = "http://localhost:11434"; // Default to localhost for l
 
 document.addEventListener('DOMContentLoaded', getModelsInfo);
 
+function displayAPIError(message) {
+    const apiErrorElement = document.getElementById('apiError');
+    if (apiErrorElement) {
+        apiErrorElement.innerHTML = `<p style="color: red;">${message}</p>`;
+        apiErrorElement.style.display = 'block';
+    }
+}
+
+function clearAPIError() {
+    const apiErrorElement = document.getElementById('apiError');
+    if (apiErrorElement) {
+        apiErrorElement.innerHTML = '';
+        apiErrorElement.style.display = 'none';
+    }
+}
+
 async function generateQuote() {
+    clearAPIError();
     const selectedModel = localStorage.getItem('selectedModel');
     if (!selectedModel) {
         alert('No model selected. Please go back to the homepage and select one.');
@@ -26,6 +43,7 @@ async function generateQuote() {
 }
 
 async function generateIdea() {
+    clearAPIError();
     const selectedModel = localStorage.getItem('selectedModel');
     if (!selectedModel) {
         alert('No model selected. Please go back to the homepage and select one.');
@@ -43,12 +61,19 @@ async function generateIdea() {
             "stream": false
         })
     });
+    if (!response.ok) {
+        const errorText = await response.text();
+        displayAPIError(`API Error generating idea: ${response.status} - ${errorText}`);
+        document.getElementById("idea").innerHTML = 'Error generating idea.';
+        return;
+    }
     const data = await response.json();
     const idea = data.response;
     document.getElementById("idea").innerHTML = idea;
 }
 
 async function getModelsInfo() {
+    clearAPIError();
     const navigationDiv = document.getElementById('navigationLinks');
     const modelsSection = document.getElementById('modelsSection');
     const errorMessageElement = document.getElementById('errorMessage') || document.getElementById('info');
@@ -63,7 +88,7 @@ async function getModelsInfo() {
     }
 
     if (errorMessageElement && (currentPage.includes('index.html') || !localStorage.getItem('selectedModel'))) {
-        errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download">here</a> and run it.</p>';
+        errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download">here</a> and run it.</p><p>If you encounter API issues after installation, you might need to set the OLLAMA_ORIGINS environment variable by running the command: <code>launchctl setenv OLLAMA_ORIGINS "*"</code></p>';
     }
     
     if (navigationDiv) {
@@ -78,6 +103,8 @@ async function getModelsInfo() {
             },
         });
         if (!response.ok) {
+            const errorText = await response.text();
+            displayAPIError(`API Error getting models: ${response.status} - ${errorText}`);
             throw new Error('API not working');
         }
         const data = await response.json();
@@ -141,7 +168,7 @@ async function getModelsInfo() {
                  modelsSection.style.display = 'block';
             }
             if (errorMessageElement) {
-                 errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download">here</a> and run it.</p>';
+                 errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download">here</a> and run it.</p><p>If you encounter API issues after installation, you might need to set the OLLAMA_ORIGINS environment variable by running the command: <code>launchctl setenv OLLAMA_ORIGINS "*"</code></p>';
             }
             if (navigationDiv) {
                 navigationDiv.style.display = 'none';
@@ -169,6 +196,7 @@ function selectModel() {
 }
 
 async function getTranslation() {
+    clearAPIError();
     const selectedModel = localStorage.getItem('selectedModel');
     if (!selectedModel) {
         alert('No model selected. Please go back to the homepage and select one.');
@@ -196,6 +224,12 @@ async function getTranslation() {
             "stream": false
         })
     });
+    if (!response.ok) {
+        const errorText = await response.text();
+        displayAPIError(`API Error getting translation: ${response.status} - ${errorText}`);
+        document.getElementById("translation").innerHTML = 'Error getting translation.';
+        return;
+    }
     const data = await response.json();
     const translation = data.response;
     document.getElementById("translation").innerHTML = translation;
