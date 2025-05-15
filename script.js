@@ -87,8 +87,11 @@ async function getModelsInfo() {
         }
     }
 
-    if (errorMessageElement && (currentPage.includes('index.html') || !localStorage.getItem('selectedModel'))) {
-        errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download">here</a> and run it.</p><p>If you encounter API issues after installation, you might need to set the OLLAMA_ORIGINS environment variable by running the command: <code>launchctl setenv OLLAMA_ORIGINS "*"</code></p>';
+     if (errorMessageElement && (currentPage.includes('index.html') || !localStorage.getItem('selectedModel'))) {
+        errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download" target="_blank">here</a> and run it.</p>' +
+                                        '<p>If you encounter API issues (like CORS errors) after installation, you might need to set the OLLAMA_ORIGINS environment variable. ' +
+                                        'For detailed instructions for macOS, Windows, and Linux, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>. ' +
+                                        'For a quick fix on macOS, you can try: <code>launchctl setenv OLLAMA_ORIGINS "*"</code>.</p>';
     }
     
     if (navigationDiv) {
