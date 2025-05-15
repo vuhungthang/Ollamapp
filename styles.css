@@ -230,3 +230,75 @@ footer a:hover {
     min-height: 30px; /* Give it a minimum height */
     white-space: pre-wrap; /* Preserve formatting and wrap text */
 }
+
+/* Add styles for the chat interface */
+.chat-container {
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 60vh; /* Adjust height as needed */
+    margin-top: 20px; /* Add some space below the heading */
+}
+
+.chat-box {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    max-width: 80%;
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: #007bff; /* Using the accent color for user messages */
+    color: white;
+}
+
+.message.assistant {
+    align-self: flex-start;
+    background-color: #e9ecef; /* Using a light grey for assistant messages */
+    color: #212529;
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+}
+
+.chat-input input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    background-color: #212529; /* Using the primary button color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.chat-input button:hover {
+    background-color: #343a40; /* Using the primary button hover color */
+}

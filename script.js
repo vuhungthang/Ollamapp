@@ -277,7 +277,7 @@ async function getTranslation() {
         },
         body: JSON.stringify({
             "model": selectedModel,
-            "prompt": `translate ${wordToTranslate} into ${selectedLanguage}`,
+            "prompt": `translate the following text "${wordToTranslate}" to ${selectedLanguage}`,
             "stream": false
         })
     };
@@ -296,16 +296,128 @@ async function getTranslation() {
         const translation = data.response;
         document.getElementById("translation").innerHTML = translation;
 
-    } catch (error) {
-        console.error("Fetch error (getTranslation):", error);
-        if (error instanceof TypeError || error.message === 'Failed to fetch') {
-            displayAPIError('<p>Could not connect to Ollama API to get translation. This might be due to network issues or CORS restrictions.</p>' +
-                            '<p>Please ensure Ollama is running and that you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin.</p>' +
-                            '<p>For detailed instructions on setting OLLAMA_ORIGINS, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
-            document.getElementById("translation").innerHTML = 'Error getting translation due to connection issues.';
-        } else {
-            displayAPIError(`An unexpected error occurred while getting translation: ${error.message}`);
-            document.getElementById("translation").innerHTML = 'Error getting translation.';
-        }
-    }
 }
+
+// Add chat functionality for chatbot.html
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if we are on the chatbot.html page
+    if (window.location.pathname.includes('chatbot.html')) {
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        let conversationHistory = [
+            { 
+                role: "system", 
+                content: "You are a helpful buddy that study with me." 
+            }
+        ];
+
+        // Function to display a message in the chat box
+        function displayMessage(message, role) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', role);
+
+            // Process formatting for assistant messages
+            if (role === 'assistant') {
+                let formattedMessage = message;
+                // Replace **text** with <strong>text</strong>
+                formattedMessage = formattedMessage.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                // Replace *text* with <em>text</em>
+                formattedMessage = formattedMessage.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                messageElement.innerHTML = formattedMessage;
+            } else {
+                // For user messages, just use textContent
+                messageElement.textContent = message;
+            }
+
+            chatBox.appendChild(messageElement);
+            // Scroll to the bottom of the chat box
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Function to send a message to the Ollama API
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Display user message
+            displayMessage(message, 'user');
+            userInput.value = ''; // Clear input
+
+            // Add user message to history
+            conversationHistory.push({ role: 'user', content: message });
+
+            // Get selected model
+            const selectedModel = localStorage.getItem('selectedModel');
+            if (!selectedModel) {
+                displayMessage('Error: No model selected. Please go back to the homepage and select one.', 'assistant');
+                return;
+            }
+
+            try {
+                // Show a loading indicator message from the assistant
+                const loadingMessageElement = document.createElement('div');
+                loadingMessageElement.classList.add('message', 'assistant', 'loading');
+                loadingMessageElement.textContent = 'Thinking...';
+                chatBox.appendChild(loadingMessageElement);
+                 chatBox.scrollTop = chatBox.scrollHeight;
+
+
+                const response = await fetch(`${ollamaApiBaseUrl}/api/chat`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        model: selectedModel,
+                        messages: conversationHistory,
+                        stream: false // Set to true for streaming responses
+                    })
+                });
+
+                // Remove loading indicator
+                chatBox.removeChild(loadingMessageElement);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    displayMessage(`API Error: ${response.status} - ${errorText}`, 'assistant');
+                    // Optionally, remove the last user message from history if the API call failed
+                    conversationHistory.pop();
+                    return;
+                }
+
+                const data = await response.json();
+                const assistantMessage = data.message.content;
+
+                // Display assistant message
+                displayMessage(assistantMessage, 'assistant');
+
+                // Add assistant message to history
+                conversationHistory.push({ role: 'assistant', content: assistantMessage });
+
+            } catch (error) {
+                // Remove loading indicator in case of fetch error
+                 const loadingMessageElement = chatBox.querySelector('.message.assistant.loading');
+                 if(loadingMessageElement) chatBox.removeChild(loadingMessageElement);
+
+                displayMessage(`Error sending message: ${error}`, 'assistant');
+                // Optionally, remove the last user message from history if the API call failed
+                conversationHistory.pop();
+            }
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initial message from the assistant (simulating the start of the chat)
+        // This initial message isn't part of the API history array until the first user message is sent
+         displayMessage("Hello! I am your study buddy", 'assistant');
+    }
+});
