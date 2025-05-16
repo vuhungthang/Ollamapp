@@ -270,6 +270,7 @@ footer a:hover {
     align-self: flex-start;
     background-color: #e9ecef; /* Using a light grey for assistant messages */
     color: #212529;
+    text-align: left;
 }
 
 .chat-input {
