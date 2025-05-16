@@ -56,7 +56,7 @@ async function generateQuote() {
         console.error("Fetch error (generateQuote):", error);
         if (error instanceof TypeError || error.message === 'Failed to fetch') {
             displayAPIError('<p>Could not connect to Ollama API to generate a quote. This might be due to network issues or CORS restrictions.</p>' +
-                            '<p>Please ensure Ollama is running and that you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin.</p>' +
+                            '<p>Please ensure Ollama is running, or install it <a href="https://objectgraph.com/blog/ollama-cors" target="_blank">here</a>.</p>  and that you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin.</p>' +
                             '<p>For detailed instructions on setting OLLAMA_ORIGINS, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
             document.getElementById("quote").innerHTML = 'Error generating quote due to connection issues.';
         } else {
@@ -296,6 +296,18 @@ async function getTranslation() {
         const translation = data.response;
         document.getElementById("translation").innerHTML = translation;
 
+    } catch (error) {
+        console.error("Fetch error (getTranslation):", error);
+        if (error instanceof TypeError || error.message === 'Failed to fetch') {
+            displayAPIError('<p>Could not connect to Ollama API to get a translation. This might be due to network issues or CORS restrictions.</p>' +
+                            '<p>Please ensure Ollama is running, or install it <a href="https://objectgraph.com/blog/ollama-cors" target="_blank">here</a>.</p>  and that you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin.</p>' +
+                            '<p>For detailed instructions on setting OLLAMA_ORIGINS, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
+            document.getElementById("translation").innerHTML = 'Error getting translation due to connection issues.';
+        } else {
+            displayAPIError(`An unexpected error occurred while getting a translation: ${error.message}`);
+            document.getElementById("translation").innerHTML = 'Error getting translation.';
+        }
+    }
 }
 
 // Add chat functionality for chatbot.html
