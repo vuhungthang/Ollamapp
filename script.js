@@ -56,8 +56,8 @@ async function generateQuote() {
         console.error("Fetch error (generateQuote):", error);
         if (error instanceof TypeError || error.message === 'Failed to fetch') {
             displayAPIError('<p>Could not connect to Ollama API to generate a quote. This might be due to network issues or CORS restrictions.</p>' +
-                            '<p>Please ensure Ollama is running, or install it <a href="https://objectgraph.com/blog/ollama-cors" target="_blank">here</a>.</p>  and that you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin.</p>' +
-                            '<p>For detailed instructions on setting OLLAMA_ORIGINS, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
+                            '<p>Please ensure Ollama is running. If not installed, download it from <a href="https://ollama.com/download" target="_blank">ollama.com/download</a>.</p>' +
+                            '<p>Also, ensure you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin. For detailed instructions, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
             document.getElementById("quote").innerHTML = 'Error generating quote due to connection issues.';
         } else {
             displayAPIError(`An unexpected error occurred while generating a quote: ${error.message}`);
@@ -104,8 +104,8 @@ async function generateIdea() {
         console.error("Fetch error (generateIdea):", error);
         if (error instanceof TypeError || error.message === 'Failed to fetch') {
             displayAPIError('<p>Could not connect to Ollama API to generate an idea. This might be due to network issues or CORS restrictions.</p>' +
-                            '<p>Please ensure Ollama is running and that you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin.</p>' +
-                            '<p>For detailed instructions on setting OLLAMA_ORIGINS, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
+                            '<p>Please ensure Ollama is running. If not installed, download it from <a href="https://ollama.com/download" target="_blank">ollama.com/download</a>.</p>' +
+                            '<p>Also, ensure you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin. For detailed instructions, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
             document.getElementById("idea").innerHTML = 'Error generating idea due to connection issues.';
         } else {
             displayAPIError(`An unexpected error occurred while generating an idea: ${error.message}`);
@@ -130,9 +130,8 @@ async function getModelsInfo() {
     }
 
      if (errorMessageElement && (currentPage.includes('index.html') || !localStorage.getItem('selectedModel'))) {
-        errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download" target="_blank">here</a> and run it.</p>' +
-                                        '<p>If you encounter API issues (like CORS errors) after installation, you might need to set the OLLAMA_ORIGINS environment variable. ' +
-                                        'For detailed instructions for macOS, Windows, and Linux, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>';
+        errorMessageElement.innerHTML = '<p>Ollama is not turned on or installed. Please download and run it from <a href="https://ollama.com/download" target="_blank">ollama.com/download</a>.</p>' +
+                                        '<p>If you encounter API issues (like CORS errors) after installation, you might need to set the OLLAMA_ORIGINS environment variable. For detailed instructions for macOS, Windows, and Linux, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>';
     }
     
     if (navigationDiv) {
@@ -213,12 +212,12 @@ async function getModelsInfo() {
         if (error instanceof TypeError || error.message === 'Failed to fetch') {
             if (errorMessageElement) {
                 errorMessageElement.innerHTML = '<p>Could not connect to Ollama API. This might be due to network issues or CORS restrictions.</p>' +
-                                                '<p>Please ensure Ollama is running and that you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin.</p>' +
-                                                '<p>For detailed instructions on setting OLLAMA_ORIGINS, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>';
+                                                '<p>Please ensure Ollama is running. If not installed, download it from <a href="https://ollama.com/download" target="_blank">ollama.com/download</a>.</p>' +
+                                                '<p>Also, ensure you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin. For detailed instructions, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>';
             }
         } else {
             if (errorMessageElement) {
-                 errorMessageElement.innerHTML = '<p>An API error occurred.</p><p>Ollama is not turned on or installed. Please install it from <a href="https://ollama.com/download" target="_blank">here</a> and run it.</p>';
+                 errorMessageElement.innerHTML = '<p>An API error occurred.</p><p>Ollama is not turned on or installed. Please download and run it from <a href="https://ollama.com/download" target="_blank">ollama.com/download</a>.</p>';
             }
         }
 
@@ -300,8 +299,8 @@ async function getTranslation() {
         console.error("Fetch error (getTranslation):", error);
         if (error instanceof TypeError || error.message === 'Failed to fetch') {
             displayAPIError('<p>Could not connect to Ollama API to get a translation. This might be due to network issues or CORS restrictions.</p>' +
-                            '<p>Please ensure Ollama is running, or install it <a href="https://objectgraph.com/blog/ollama-cors" target="_blank">here</a>.</p>  and that you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin.</p>' +
-                            '<p>For detailed instructions on setting OLLAMA_ORIGINS, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
+                            '<p>Please ensure Ollama is running. If not installed, download it from <a href="https://ollama.com/download" target="_blank">ollama.com/download</a>.</p>' +
+                            '<p>Also, ensure you have set the OLLAMA_ORIGINS environment variable correctly if you are accessing from a different origin. For detailed instructions, please visit <a href="https://objectgraph.com/blog/ollama-cors/" target="_blank">this guide</a>.</p>');
             document.getElementById("translation").innerHTML = 'Error getting translation due to connection issues.';
         } else {
             displayAPIError(`An unexpected error occurred while getting a translation: ${error.message}`);
