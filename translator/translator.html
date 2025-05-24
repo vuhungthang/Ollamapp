@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Translator</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <div id="errorMessage" style="color: red;"></div>
+    <div id="apiError" style="display: none;"></div>
     <h1>Translator</h1>
     <p>This page doing translation using Ollama.</p>
 
@@ -32,9 +33,10 @@
     </div>
     <!-- Add a link back to the homepage -->
     <div style="margin-top: 20px; text-align: center;">
-        <a href="index.html">Back to Home</a>
+        <a href="../index.html">Back to Home</a>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../shared/utils.js"></script>
+    <script src="translator.js"></script>
 </body>
 </html> 

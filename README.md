@@ -30,10 +30,29 @@ This project provides a simple web interface to interact with the Ollama API for
 
 ## Project Structure
 
+The project is now organized into feature-specific folders for better maintainability:
+
 *   `index.html`: Main page for model selection and navigation.
-*   `script.js`: Core JavaScript logic for API calls, model handling, and application functionality.
-*   `styles.css`: Styling for all HTML pages.
-*   `quote.html`: Page for quote generation.
-*   `idea.html`: Page for project idea generation.
-*   `translator.html`: Page for text translation.
-*   `chatbot.html`: Page for chatbot interaction.
+*   `styles.css`: Global styling for all HTML pages.
+*   `shared/`: Contains shared utilities and common functionality
+    *   `utils.js`: Core utilities for API calls, model handling, and error management.
+*   `quote/`: Quote generation feature
+    *   `quote.html`: Page for quote generation.
+    *   `quote.js`: JavaScript specific to quote functionality.
+*   `idea/`: Project idea generation feature
+    *   `idea.html`: Page for project idea generation.
+    *   `idea.js`: JavaScript specific to idea generation functionality.
+*   `translator/`: Translation feature
+    *   `translator.html`: Page for text translation.
+    *   `translator.js`: JavaScript specific to translation functionality.
+*   `chatbot/`: Interactive chatbot feature
+    *   `chatbot.html`: Page for chatbot interaction.
+    *   `chatbot.js`: JavaScript specific to chatbot functionality.
+
+## Architecture
+
+The codebase follows a modular architecture:
+
+- **Shared utilities** (`shared/utils.js`): Contains common functions for API communication, model management, and error handling
+- **Feature-specific modules**: Each feature has its own folder with dedicated HTML and JavaScript files
+- **Separation of concerns**: Functionality is clearly separated by feature, making the code more maintainable and easier to extend

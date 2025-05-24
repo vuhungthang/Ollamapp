@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Quote</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <div id="errorMessage" style="color: red;"></div>
+    <div id="apiError" style="display: none;"></div>
     <h1>Generate Quote</h1>
     <p>This page generates an inspiring quote using Ollama.</p>
     <div class="Quote-section">
@@ -19,10 +20,11 @@
         <select id="modelSelect"></select>
         <button onclick="selectModel()">Select Model</button>
     </div>
-    <script src="script.js"></script>
+    <script src="../shared/utils.js"></script>
+    <script src="quote.js"></script>
     <!-- Add a link back to the homepage -->
     <div style="margin-top: 20px; text-align: center;">
-        <a href="index.html">Back to Home</a>
+        <a href="../index.html">Back to Home</a>
     </div>
 </body>
 </html> 
